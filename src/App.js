@@ -79,12 +79,19 @@ class TodoListForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({
+
+    const newItem = {
+      title: this.state.title,
+      body: this.state.body,
+      id: Date.now(),
+      date: new Date()
+    }
+    this.setState(state => ({
       title: '',
       body: '',
-      items: [...this.state.items, this.state.title, this.state.body]
-    })
-  };
+      items: state.items.concat(newItem)
+    }));
+  }
 
   render() {
    return (
@@ -109,12 +116,15 @@ class TodoListForm extends React.Component {
 
 function List(props) {
   return (
-    <ul>
-      {
-        props.items.map((item, index) => 
-          <li key={index}>{item}</li>)
-      }
-    </ul>
+    <div>
+      {props.items.map((item) => 
+          <div key={item.id}>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+            <p><FormattedDate date={item.date}/></p>
+          </div>
+      )}
+    </div>
   );
 };
 

@@ -9,8 +9,6 @@ function App() {
        <h2></h2>
       </header>
       <h2>Start doing NOW!</h2>
-      <div id="tasks-container">
-      </div>
       <TodoListForm />
     </div>
   );

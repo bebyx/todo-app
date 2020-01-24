@@ -11,7 +11,7 @@ function App() {
       <h2>Start doing NOW!</h2>
       <div id="tasks-container">
       </div>
-      <TodoList />
+      <TodoListForm />
     </div>
   );
 }
@@ -54,46 +54,77 @@ function FormattedDate(props) {
 
 
 
-class TodoList extends React.Component {
+class TodoListForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      title: '',
+      body: '',
+      items: []
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   handleSubmit(event) {
-    setTaskText(this.state.value);
     event.preventDefault();
-  }
+    this.setState({
+      title: '',
+      body: '',
+      items: [...this.state.id, this.state.title, this.state.body]
+    })
+  };
 
   render() {
    return (
+    <div>
+      <List items={this.state.items}/>
       <form id="form" onSubmit={this.handleSubmit}>
         <li>
           <ul>
-            <textarea type="text" value={this.state.value} onChange={this.handleChange} />
+            <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
           </ul>
-          <ul><input type="submit" value="Submit" /></ul>
+          <ul>
+            <textarea name="body" type="text" value={this.state.body} onChange={this.handleChange} />
+          </ul>
+          <ul><button>Submit</button></ul>
         </li>
       </form>
+    </div>
     );
   }
 
 }
 
 function setTaskText(props) {
-  let child = document.createElement('p');
-  let textnode = document.createTextNode(props);
-  child.appendChild(textnode);
-  document.getElementById('tasks-container').appendChild(child);
+  let childTitle = document.createElement('h3');
+  let textnodeTitle = document.createTextNode(props.title);
+  let childP = document.createElement('p');
+  let textnodeP = document.createTextNode(props.body);
+  childTitle.appendChild(textnodeTitle);
+  childP.appendChild(textnodeP);
+  document.getElementById('tasks-container').appendChild(childTitle);
+  document.getElementById('tasks-container').appendChild(childP);
 }
 
+const List = props => (
+  <ul>
+    {
+      props.items.map((item, index) => <li key={index}>{item}</li>)
+    }
+  </ul>
+);
+
+
 export default App;
-
-

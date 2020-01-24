@@ -9,10 +9,9 @@ function App() {
        <h2></h2>
       </header>
       <h2>Start doing NOW!</h2>
-      <p><input type="body" id="taskInput"></input></p>
-      <button id="addTask" onClick={postTask}>Add Task</button>
       <div id="tasks-container">
       </div>
+      <TodoList />
     </div>
   );
 }
@@ -54,9 +53,38 @@ function FormattedDate(props) {
 }
 
 
-function getTaskText() {
-  let task = document.getElementById('taskInput').value;
-  if (task != "") { return task;}
+
+class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    setTaskText(this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+   return (
+      <form id="form" onSubmit={this.handleSubmit}>
+        <li>
+          <ul>
+            <textarea type="text" value={this.state.value} onChange={this.handleChange} />
+          </ul>
+          <ul><input type="submit" value="Submit" /></ul>
+        </li>
+      </form>
+    );
+  }
+
 }
 
 function setTaskText(props) {
@@ -65,11 +93,6 @@ function setTaskText(props) {
   child.appendChild(textnode);
   document.getElementById('tasks-container').appendChild(child);
 }
-
-function postTask() {
-  return setTaskText(getTaskText());
-}
-
 
 export default App;
 

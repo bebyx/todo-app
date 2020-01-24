@@ -82,7 +82,7 @@ class TodoListForm extends React.Component {
     this.setState({
       title: '',
       body: '',
-      items: [...this.state.id, this.state.title, this.state.body]
+      items: [...this.state.items, this.state.title, this.state.body]
     })
   };
 
@@ -107,24 +107,16 @@ class TodoListForm extends React.Component {
 
 }
 
-function setTaskText(props) {
-  let childTitle = document.createElement('h3');
-  let textnodeTitle = document.createTextNode(props.title);
-  let childP = document.createElement('p');
-  let textnodeP = document.createTextNode(props.body);
-  childTitle.appendChild(textnodeTitle);
-  childP.appendChild(textnodeP);
-  document.getElementById('tasks-container').appendChild(childTitle);
-  document.getElementById('tasks-container').appendChild(childP);
-}
-
-const List = props => (
-  <ul>
-    {
-      props.items.map((item, index) => <li key={index}>{item}</li>)
-    }
-  </ul>
-);
+function List(props) {
+  return (
+    <ul>
+      {
+        props.items.map((item, index) => 
+          <li key={index}>{item}</li>)
+      }
+    </ul>
+  );
+};
 
 
 export default App;

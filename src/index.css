@@ -27,3 +27,7 @@ ul {
 input {
 	font-size: 21px;
 }
+
+textarea {
+  font-size: 15px;
+}

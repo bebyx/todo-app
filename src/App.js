@@ -77,6 +77,11 @@ class TodoListForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    if (!this.state.title.length && !this.state.body.length) {
+      alert("All fields should be filled in")
+      return;
+    }
+
     const newItem = {
       title: this.state.title,
       body: this.state.body,

@@ -6,7 +6,6 @@ function App() {
     <div className="App">
       <header className="App-header">
        <h1><Clock /></h1>
-       <h2></h2>
       </header>
       <h2>Start doing NOW!</h2>
       <TodoListForm />
@@ -114,9 +113,9 @@ class TodoListForm extends React.Component {
 
 function List(props) {
   return (
-    <div>
+    <div class='task-list-container'>
       {props.items.map((item) => 
-          <div key={item.id}>
+          <div key={item.id} class='one-task-container'>
             <h2>{item.title}</h2>
             <p>{item.body}</p>
             <p><FormattedDate date={item.date}/></p>

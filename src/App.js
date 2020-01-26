@@ -78,7 +78,7 @@ class TodoListForm extends React.Component {
     event.preventDefault();
 
     if (!this.state.title.length && !this.state.body.length) {
-      alert("All fields should be filled in")
+      alert("All fields should be filled in!")
       return;
     }
 
@@ -95,10 +95,18 @@ class TodoListForm extends React.Component {
     }));
   }
 
+  getRawText() {
+    if (!this.state.body.length) {
+      return { __html: "This is how your text will look like"}
+    }
+    return { __html: this.state.body};
+  }
+
   render() {
    return (
     <div>
       <List items={this.state.items}/>
+      <h1>Add Task:</h1>
       <form id="form" onSubmit={this.handleSubmit}>
         <li>
           <ul>
@@ -110,6 +118,8 @@ class TodoListForm extends React.Component {
           <ul><button>Submit</button></ul>
         </li>
       </form>
+      <h1>Output Preview:</h1>
+      <p dangerouslySetInnerHTML={this.getRawText()}></p>
     </div>
     );
   }

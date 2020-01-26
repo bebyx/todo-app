@@ -10,11 +10,10 @@ function App() {
        <h1><Clock /></h1>
       </header>
       <h2>Start doing NOW!</h2>
-      <TodoListForm />
+      <Todo />
     </div>
   );
 }
-
 
 
 class Clock extends React.Component {
@@ -53,7 +52,7 @@ function FormattedDate(props) {
 
 
 
-class TodoListForm extends React.Component {
+class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -108,6 +107,8 @@ class TodoListForm extends React.Component {
    return (
     <div>
       <List items={this.state.items}/>
+      <h1>Output Preview:</h1>
+      <p dangerouslySetInnerHTML={this.getMarkedText()}></p>
       <h1>Add Task:</h1>
       <form id="form" onSubmit={this.handleSubmit}>
         <li>
@@ -120,9 +121,7 @@ class TodoListForm extends React.Component {
           <ul><button>Submit</button></ul>
         </li>
       </form>
-      <h1>Output Preview:</h1>
-      <p dangerouslySetInnerHTML={this.getMarkedText()}></p>
-    </div>
+      </div>
     );
   }
 

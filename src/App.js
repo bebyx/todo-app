@@ -86,7 +86,7 @@ class TodoListForm extends React.Component {
 
     const newItem = {
       title: this.state.title,
-      body: this.state.body,
+      body: this.getMarkedText(),
       id: Date.now(),
       date: new Date()
     }
@@ -134,7 +134,7 @@ function List(props) {
       {props.items.map((item) => 
           <div key={item.id} class='one-task-container'>
             <h2>{item.title}</h2>
-            <p>{item.body}</p>
+            <p dangerouslySetInnerHTML={item.body}></p>
             <p><FormattedDate date={item.date}/></p>
           </div>
       )}

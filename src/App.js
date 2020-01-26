@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import { Remarkable } from 'remarkable';
+const md = new Remarkable;
 
 function App() {
   return (
@@ -77,7 +79,7 @@ class TodoListForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    if (!this.state.title.length && !this.state.body.length) {
+    if (!this.state.title.length || !this.state.body.length) {
       alert("All fields should be filled in!")
       return;
     }
@@ -95,11 +97,11 @@ class TodoListForm extends React.Component {
     }));
   }
 
-  getRawText() {
+  getMarkedText() {
     if (!this.state.body.length) {
-      return { __html: "This is how your text will look like"}
+      return { __html: "This is how your text will look like. **<b>Markdown</b>** is enabled."}
     }
-    return { __html: this.state.body};
+    return { __html: md.render(this.state.body)};
   }
 
   render() {
@@ -119,7 +121,7 @@ class TodoListForm extends React.Component {
         </li>
       </form>
       <h1>Output Preview:</h1>
-      <p dangerouslySetInnerHTML={this.getRawText()}></p>
+      <p dangerouslySetInnerHTML={this.getMarkedText()}></p>
     </div>
     );
   }

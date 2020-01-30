@@ -117,7 +117,6 @@ class Todo extends React.Component {
         {this.state.items.map((item, index) => {
           return (
             <List 
-              key={item.id}
               item={item} 
               onRemoveItem={this.handleRemoveItem}
             />

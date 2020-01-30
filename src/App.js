@@ -63,6 +63,8 @@ class Todo extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.handleRemoveItem = this.handleRemoveItem.bind(this);
   }
 
   handleChange(event) {
@@ -103,10 +105,25 @@ class Todo extends React.Component {
     return { __html: md.render(this.state.body)};
   }
 
+  handleRemoveItem(event) {
+    const updatedItems = this.state.items.filter(item => item.id !== event);
+    this.setState({items: updatedItems})
+  }
+
   render() {
    return (
     <div>
-      <List items={this.state.items}/>
+      <div class='task-list-container'>
+        {this.state.items.map((item, index) => {
+          return (
+            <List 
+              key={item.id}
+              item={item} 
+              onRemoveItem={this.handleRemoveItem}
+            />
+          );
+        })}
+      </div>
       <h1>Output Preview:</h1>
       <p dangerouslySetInnerHTML={this.getMarkedText()}></p>
       <h1>Add Task:</h1>
@@ -121,25 +138,34 @@ class Todo extends React.Component {
           <ul><button>Submit</button></ul>
         </li>
       </form>
-      </div>
+    </div>
     );
   }
 
 }
 
-function List(props) {
-  return (
-    <div class='task-list-container'>
-      {props.items.map((item) => 
-          <div key={item.id} class='one-task-container'>
-            <h2>{item.title}</h2>
-            <p dangerouslySetInnerHTML={item.body}></p>
-            <p><FormattedDate date={item.date}/></p>
-          </div>
-      )}
-    </div>
-  );
-};
+class List extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.onRemoveItem = this.onRemoveItem.bind(this);
+  }
+    
+    onRemoveItem(event) {
+    event.preventDefault();
+    this.props.onRemoveItem(this.props.item.id)
+  }
+
+  render() {
+    return (
+            <div key={this.props.item.id} class='one-task-container'>
+              <h2>{this.props.item.title}</h2>
+              <p dangerouslySetInnerHTML={this.props.item.body}></p>
+              <p><button onClick={this.onRemoveItem}>Remove</button></p>
+              <p><FormattedDate date={this.props.item.date}/></p>
+            </div>
+    )
+  }
+}
 
 export default App;

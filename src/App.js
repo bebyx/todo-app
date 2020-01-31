@@ -90,7 +90,7 @@ class Todo extends React.Component {
     const newItem = {
       title: this.state.title,
       body: this.getMarkedText(),
-      checked: null,
+      isChecked: false,
       id: Date.now(),
       date: new Date()
     }
@@ -113,14 +113,19 @@ class Todo extends React.Component {
     this.setState({items: updatedItems})
   }
 
-  handleDoneTask(event) {
-    const i = this.state.items.findIndex(item => item.id === event);
+  handleDoneTask(iid, event) {
+    const i = this.state.items.findIndex(item => item.id === iid);
     const checkingItems = this.state.items;
 
-    if (checkingItems[i].checked) {
+
+    checkingItems[i].isChecked = event;
+
+    if (checkingItems[i].isChecked) { checkingItems[i].title = 'BBB'; }
+
+   /* if (checkingItems[i].checked) {
       checkingItems[i].checked = false;
     } else { checkingItems[i].checked = true; }
-
+*/
     this.setState({items: checkingItems});
 
   }
@@ -174,7 +179,7 @@ class List extends React.Component {
 
     onCheckChange(event) {
     event.preventDefault();
-    this.props.onCheckChange(this.props.item.id)
+    this.props.onCheckChange(this.props.item.id, event.target.checked)
   }
 
   render() {
@@ -182,7 +187,7 @@ class List extends React.Component {
             <div key={this.props.item.id} class='one-task-container'>
               <h2>{this.props.item.title}</h2>
               <p dangerouslySetInnerHTML={this.props.item.body}></p>
-              <p><label>Done:</label><input type="checkbox" checked={this.props.item.checked} onChange={this.onCheckChange}></input></p>
+              <p><label>Done:</label><input type="checkbox" checked={this.props.item.isChecked} onChange={this.onCheckChange}></input></p>
               <p><button onClick={this.onRemoveItem}>Remove</button></p>
               <p><FormattedDate date={this.props.item.date}/></p>
             </div>

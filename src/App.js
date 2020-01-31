@@ -117,16 +117,11 @@ class Todo extends React.Component {
     const i = this.state.items.findIndex(item => item.id === iid);
     const checkingItems = this.state.items;
 
-
     checkingItems[i].isChecked = event;
 
     if (checkingItems[i].isChecked) { checkingItems[i].title = 'BBB'; }
 
-   /* if (checkingItems[i].checked) {
-      checkingItems[i].checked = false;
-    } else { checkingItems[i].checked = true; }
-*/
-    this.setState({items: checkingItems});
+    setTimeout(x => this.setState(x), 0, {items: checkingItems});
 
   }
 

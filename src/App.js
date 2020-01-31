@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Remarkable } from 'remarkable';
-const md = new Remarkable;
+
+const md = new Remarkable();
 
 function App() {
   return (
@@ -65,6 +66,7 @@ class Todo extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
+    this.handleDoneTask = this.handleDoneTask.bind(this);
   }
 
   handleChange(event) {
@@ -88,6 +90,7 @@ class Todo extends React.Component {
     const newItem = {
       title: this.state.title,
       body: this.getMarkedText(),
+      checked: null,
       id: Date.now(),
       date: new Date()
     }
@@ -110,6 +113,18 @@ class Todo extends React.Component {
     this.setState({items: updatedItems})
   }
 
+  handleDoneTask(event) {
+    const i = this.state.items.findIndex(item => item.id === event);
+    const checkingItems = this.state.items;
+
+    if (checkingItems[i].checked) {
+      checkingItems[i].checked = false;
+    } else { checkingItems[i].checked = true; }
+
+    this.setState({items: checkingItems});
+
+  }
+
   render() {
    return (
     <div>
@@ -119,6 +134,7 @@ class Todo extends React.Component {
             <List 
               item={item} 
               onRemoveItem={this.handleRemoveItem}
+              onCheckChange={this.handleDoneTask}
             />
           );
         })}
@@ -148,6 +164,7 @@ class List extends React.Component {
     super(props);
 
     this.onRemoveItem = this.onRemoveItem.bind(this);
+    this.onCheckChange = this.onCheckChange.bind(this);
   }
     
     onRemoveItem(event) {
@@ -155,11 +172,17 @@ class List extends React.Component {
     this.props.onRemoveItem(this.props.item.id)
   }
 
+    onCheckChange(event) {
+    event.preventDefault();
+    this.props.onCheckChange(this.props.item.id)
+  }
+
   render() {
     return (
             <div key={this.props.item.id} class='one-task-container'>
               <h2>{this.props.item.title}</h2>
               <p dangerouslySetInnerHTML={this.props.item.body}></p>
+              <p><label>Done:</label><input type="checkbox" checked={this.props.item.checked} onChange={this.onCheckChange}></input></p>
               <p><button onClick={this.onRemoveItem}>Remove</button></p>
               <p><FormattedDate date={this.props.item.date}/></p>
             </div>

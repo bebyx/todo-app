@@ -119,8 +119,6 @@ class Todo extends React.Component {
 
     checkingItems[i].isChecked = event;
 
-    if (checkingItems[i].isChecked) { checkingItems[i].title = 'BBB'; }
-
     setTimeout(x => this.setState(x), 0, {items: checkingItems});
 
   }
@@ -180,8 +178,8 @@ class List extends React.Component {
   render() {
     return (
             <div key={this.props.item.id} class='one-task-container'>
-              <h2>{this.props.item.title}</h2>
-              <p dangerouslySetInnerHTML={this.props.item.body}></p>
+              <h2 className={ this.props.item.isChecked ? 'crossed-line' : '' }>{this.props.item.title}</h2>
+              <p className={ this.props.item.isChecked ? 'crossed-line' : '' } dangerouslySetInnerHTML={this.props.item.body}></p>
               <p><label>Done:</label><input type="checkbox" checked={this.props.item.isChecked} onChange={this.onCheckChange}></input></p>
               <p><button onClick={this.onRemoveItem}>Remove</button></p>
               <p><FormattedDate date={this.props.item.date}/></p>

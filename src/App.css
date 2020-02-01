@@ -24,3 +24,7 @@
   margin: 15px;
   padding: 10px
 }
+
+.crossed-line {
+    text-decoration: line-through !important;
+}

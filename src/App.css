@@ -26,5 +26,6 @@
 }
 
 .crossed-line {
+    color: rgba(0, 0, 0, 0.3);
     text-decoration: line-through !important;
 }

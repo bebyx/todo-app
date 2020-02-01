@@ -42,15 +42,19 @@ class Clock extends React.Component {
 
   render() {
     return (
-        <FormattedDate date={this.state.date} />
+        <FormattedTime date={this.state.date} />
     );
   }
 }
 
-function FormattedDate(props) {
-  return <span>{props.date.toLocaleString()}</span>;
+function FormattedTime(props) {
+  return <span>{props.date.toLocaleTimeString()}</span>;
 }
 
+function FormattedDate(props) {
+  const options = { month: 'short', day: 'numeric', year: 'numeric' };  
+  return <span>{props.date.toLocaleDateString('en-US', options)}</span>;
+}
 
 
 class Todo extends React.Component {

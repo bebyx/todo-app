@@ -48,7 +48,7 @@ class Clock extends React.Component {
 }
 
 function FormattedDate(props) {
-  return <span>{props.date.toLocaleTimeString()}</span>;
+  return <span>{props.date.toLocaleString()}</span>;
 }
 
 
@@ -154,7 +154,6 @@ class Todo extends React.Component {
     </div>
     );
   }
-
 }
 
 class List extends React.Component {

@@ -94,8 +94,11 @@ class Todo extends React.Component {
       return;
     }
 
-    const deadline_data = this.state.deadline_month + ' ' + this.state.deadline_day + ', ' + this.state.deadline_year;
+    const deadline_data = this.state.deadline_month + 
+                          ' ' + this.state.deadline_day + 
+                          ', ' + this.state.deadline_year;
     const deadline_date = new Date(deadline_data);
+
     if (Date.parse(deadline_date) < Date.now()) {
       alert("Deadline can't be earlier than of now");
       return;
@@ -137,6 +140,12 @@ class Todo extends React.Component {
 
     setTimeout(x => this.setState(x), 0, {items: checkingItems});
 
+  }
+
+  februaryCheck() {
+    if (this.state.deadline_month === 'February') {
+      return 'hide';
+    }
   }
 
   render() {
@@ -208,9 +217,24 @@ class Todo extends React.Component {
               <option value="26">26</option>
               <option value="27">27</option>
               <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
+              <option value="29" 
+                className={ (this.state.deadline_month === 'February' &&
+                             this.state.deadline_year % 4 !== 0
+                             ) ? 'hide' : '' }>29
+              </option>
+              <option value="30" 
+                className={ (this.state.deadline_month === 'February') ? 'hide' : '' }>
+                30
+              </option>
+              <option value="31" 
+                className={ (this.state.deadline_month === 'February' ||
+                             this.state.deadline_month === 'April' ||
+                             this.state.deadline_month === 'June' ||
+                             this.state.deadline_month === 'September' ||
+                             this.state.deadline_month === 'November'
+                             ) ? 'hide' : '' }>
+                31
+              </option>
             </select>
             <input name= "deadline_year" type="number" maxlength="4" minlength="4" value={this.state.deadline_year} onChange={this.handleChange} />
           </ul>

@@ -63,6 +63,9 @@ class Todo extends React.Component {
     this.state = {
       title: '',
       body: '',
+      deadline_day: 1,
+      deadline_month: 'January',
+      deadline_year: 2020,
       items: []
     };
 
@@ -95,9 +98,11 @@ class Todo extends React.Component {
       title: this.state.title,
       body: this.getMarkedText(),
       isChecked: false,
+      deadline: this.state.deadline_month + ' ' + this.state.deadline_day + ' ' + this.state.deadline_year,
       id: Date.now(),
       date: new Date()
     }
+
     this.setState(state => ({
       title: '',
       body: '',
@@ -152,6 +157,56 @@ class Todo extends React.Component {
           <ul>
             <textarea name="body" type="text" value={this.state.body} onChange={this.handleChange} />
           </ul>
+          <ul>
+            <select value={this.state.deadline_month} onChange={this.handleChange}>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+            <select value={this.state.deadline_day} onChange={this.handleChange}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+            <input type="numbe" maxlength="4" minlength="4" value={this.state.deadline_year} onChange={this.handleChange} />
+          </ul>
           <ul><button>Submit</button></ul>
         </li>
       </form>
@@ -183,6 +238,7 @@ class List extends React.Component {
             <div key={this.props.item.id} class='one-task-container'>
               <h2 className={ this.props.item.isChecked ? 'crossed-line' : '' }>{this.props.item.title}</h2>
               <p className={ this.props.item.isChecked ? 'crossed-line' : '' } dangerouslySetInnerHTML={this.props.item.body}></p>
+              <p>Deadline: {this.props.item.deadline}</p>
               <p><label>Done:</label><input type="checkbox" checked={this.props.item.isChecked} onChange={this.onCheckChange}></input></p>
               <p><button onClick={this.onRemoveItem}>Remove</button></p>
               <p><FormattedDate date={this.props.item.date}/></p>

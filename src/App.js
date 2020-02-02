@@ -90,7 +90,14 @@ class Todo extends React.Component {
     event.preventDefault();
 
     if (!this.state.title.length || !this.state.body.length) {
-      alert("All fields should be filled in!")
+      alert("All fields should be filled in!");
+      return;
+    }
+
+    const deadline_data = this.state.deadline_month + ' ' + this.state.deadline_day + ', ' + this.state.deadline_year;
+    const deadline_date = new Date(deadline_data);
+    if (Date.parse(deadline_date) < Date.now()) {
+      alert("Deadline can't be earlier than of now");
       return;
     }
 
@@ -98,7 +105,7 @@ class Todo extends React.Component {
       title: this.state.title,
       body: this.getMarkedText(),
       isChecked: false,
-      deadline: this.state.deadline_month + ' ' + this.state.deadline_day + ' ' + this.state.deadline_year,
+      deadline: deadline_data,
       id: Date.now(),
       date: new Date()
     }
@@ -238,7 +245,7 @@ class List extends React.Component {
             <div key={this.props.item.id} class='one-task-container'>
               <h2 className={ this.props.item.isChecked ? 'crossed-line' : '' }>{this.props.item.title}</h2>
               <p className={ this.props.item.isChecked ? 'crossed-line' : '' } dangerouslySetInnerHTML={this.props.item.body}></p>
-              <p>Deadline: {this.props.item.deadline}</p>
+              <p><b>Deadline:</b> {this.props.item.deadline}</p>
               <p><label>Done:</label><input type="checkbox" checked={this.props.item.isChecked} onChange={this.onCheckChange}></input></p>
               <p><button onClick={this.onRemoveItem}>Remove</button></p>
               <p><FormattedDate date={this.props.item.date}/></p>

@@ -9,3 +9,4 @@ Features:
 * markup of the TODO notes body
 * real-time clock
 * timestamps on TODO notes
+* settable deadline for a task

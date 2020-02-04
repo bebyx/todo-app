@@ -18,6 +18,7 @@ button {
   font-size: 32px;
   padding: 10px;
   border-style: none;
+  cursor: pointer;
 }
 
 ul {
@@ -26,6 +27,13 @@ ul {
 
 input {
 	font-size: 21px;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  position: relative;
+  height: 20px;
+  width: 20px;
 }
 
 textarea {

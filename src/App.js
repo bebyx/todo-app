@@ -116,6 +116,7 @@ class Todo extends React.Component {
     this.setState(state => ({
       title: '',
       body: '',
+      deadline_day: 1,
       items: state.items.concat(newItem)
     }));
   }
@@ -140,12 +141,6 @@ class Todo extends React.Component {
 
     setTimeout(x => this.setState(x), 0, {items: checkingItems});
 
-  }
-
-  februaryCheck() {
-    if (this.state.deadline_month === 'February') {
-      return 'hide';
-    }
   }
 
   render() {
@@ -220,7 +215,8 @@ class Todo extends React.Component {
               <option value="29" 
                 className={ (this.state.deadline_month === 'February' &&
                              this.state.deadline_year % 4 !== 0
-                             ) ? 'hide' : '' }>29
+                             ) ? 'hide' : '' }>
+                29
               </option>
               <option value="30" 
                 className={ (this.state.deadline_month === 'February') ? 'hide' : '' }>

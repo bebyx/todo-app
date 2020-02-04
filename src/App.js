@@ -74,6 +74,8 @@ class Todo extends React.Component {
 
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleDoneTask = this.handleDoneTask.bind(this);
+
+    this.handleMonthChange = this.handleMonthChange.bind(this);
   }
 
   handleChange(event) {
@@ -84,6 +86,11 @@ class Todo extends React.Component {
     this.setState({
       [name]: value
     });
+  }
+
+  handleMonthChange(event) {
+    this.setState({deadline_day: 1});
+    this.handleChange(event);
   }
 
   handleSubmit(event) {
@@ -169,7 +176,7 @@ class Todo extends React.Component {
             <textarea name="body" type="text" value={this.state.body} onChange={this.handleChange} />
           </ul>
           <ul>
-            <select name="deadline_month" value={this.state.deadline_month} onChange={this.handleChange}>
+            <select class="select-css" name="deadline_month" value={this.state.deadline_month} onChange={this.handleMonthChange}>
               <option value="January">January</option>
               <option value="February">February</option>
               <option value="March">March</option>
@@ -183,7 +190,7 @@ class Todo extends React.Component {
               <option value="November">November</option>
               <option value="December">December</option>
             </select>
-            <select name="deadline_day" value={this.state.deadline_day} onChange={this.handleChange}>
+            <select class="select-css" name="deadline_day" value={this.state.deadline_day} onChange={this.handleChange}>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
